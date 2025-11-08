@@ -51,6 +51,53 @@ This system replaces manual paperwork, reduces delays, and fosters better engage
 
 ---
 
+### 🎥 Video Demo and Screenshot
+
+1. **Landing Page**
+   
+   https://github.com/user-attachments/assets/d0d52fc0-a86c-4682-a11d-0ffb310a285b
+   
+2. **Login Page** – Demonstrates user login functionality.
+   
+   <img width="579" height="543" alt="Image" src="https://github.com/user-attachments/assets/b03ae3f4-257c-4ea1-89fe-bff0798bdd56" />
+   
+3. **Register Page**
+   
+   <img width="850" height="868" alt="Image" src="https://github.com/user-attachments/assets/392e42b6-718d-4b81-87c2-00add12666e9" />
+
+4. **Certificate page**
+   
+   <img width="1169" height="528" alt="Image" src="https://github.com/user-attachments/assets/d60c1c1b-a22d-4f66-8427-fdc5ae663a6d" />
+   
+5. **Notification Page in app**
+   
+   <img width="1489" height="776" alt="Image" src="https://github.com/user-attachments/assets/9bfdf6ae-4f79-40dc-905e-d73783550024" />
+   
+6. **Conflict Detection**
+   
+   <img width="1613" height="617" alt="Image" src="https://github.com/user-attachments/assets/c8764a03-d918-47e0-be7f-c3f52bfe3bf1" />
+   
+7. **Feedback Page**
+   
+   <img width="632" height="536" alt="Image" src="https://github.com/user-attachments/assets/adbb3e5e-1dc7-4b04-b2b5-1989201dfe74" />
+
+8. **Create Event Demo**
+
+   https://github.com/user-attachments/assets/5ec0f765-cb0d-4500-b0ad-bc8e15ab2c96
+
+9. **Department View**
+
+    https://github.com/user-attachments/assets/d5754df9-86ec-4fe4-bf90-45f598cd995c
+
+10. **Organizer QR scan and Edit View**
+
+    https://github.com/user-attachments/assets/d5754df9-86ec-4fe4-bf90-45f598cd995c
+
+11. **Django Admin panel View**
+    
+    https://github.com/user-attachments/assets/b57d1f33-08b5-4c86-ad01-f0dd3c829cdd
+
+   
 ## 🧠 Algorithms Used
 
 | Algorithm | Purpose |
