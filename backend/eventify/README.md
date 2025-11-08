@@ -1,5 +1,3 @@
-# College-management-system-with-Django-Backend
-College Management System — Django Backend
 
 A Django + DRF backend for managing a college: users & roles, events (request → approval → publish), registrations, feedback, certificates, and notifications.
 
