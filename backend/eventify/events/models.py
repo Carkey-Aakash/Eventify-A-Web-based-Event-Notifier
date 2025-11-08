@@ -98,50 +98,6 @@ class Event(models.Model):
         super().save(*args, **kwargs)
 
 
-    # def generate_qr_code(self):
-    #     # Use your local IP and port here — change if needed
-    #     base_url = 'http://192.168.1.81:8000'  
-    #     qr_value = f"eventify_attendance_{self.id}_{uuid.uuid4().hex[:8]}"
-    #     attendance_url = f"{base_url}/api/v1/events/attendance/verify/?event_id={self.id}&qr={qr_value}"
-
-    #     qr = qrcode.QRCode(version=1, box_size=10, border=5)
-    #     qr.add_data(attendance_url)
-    #     qr.make(fit=True)
-
-    #     img = qr.make_image(fill_color="black", back_color="white")
-    #     buffer = BytesIO()
-    #     img.save(buffer, format='PNG')
-    #     buffer.seek(0)
-
-    #     filename = f'qr_event_{self.id}.png'
-    #     self.qr_code.save(filename, File(buffer), save=False)
-
-    #     # Store the generated QR string (not URL) for later verification (optional)
-    #     self.qr_code_data = qr_value  # You might want to add this field in your model
-
-
-    # def generate_qr_code(self):
-    #     # Build base URL from settings (works on LAN or prod)
-    #     base_url = f"http://{settings.SITE_DOMAIN}".rstrip("/")
-
-    #     qr_value = f"eventify_attendance_{self.id}_{uuid.uuid4().hex[:8]}"
-    #     attendance_url = f"{base_url}/api/v1/events/attendance/verify/?event_id={self.id}&qr={qr_value}"
-
-    #     qr = qrcode.QRCode(version=1, box_size=10, border=5)
-    #     qr.add_data(attendance_url)
-    #     qr.make(fit=True)
-
-    #     img = qr.make_image(fill_color="black", back_color="white")
-    #     buffer = BytesIO()
-    #     img.save(buffer, format='PNG')
-    #     buffer.seek(0)
-
-    #     filename = f'qr_event_{self.id}.png'
-    #     self.qr_code.save(filename, File(buffer), save=False)
-
-    #     # store short token to verify later
-    #     self.qr_code_data = qr_value
-
 
 
     def generate_qr_code(self):

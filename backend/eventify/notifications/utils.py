@@ -1,37 +1,3 @@
-# from django.core.mail import send_mail
-# from django.conf import settings
-# from .models import Notification
-
-
-# # def create_notification(recipient,title,message,notification_type='general',event=None):
-# #     Notification.objects.create(
-# #         recipient=recipient,
-# #         title=title,
-# #         message=message,
-# #         notification_type=notification_type,
-# #         event=event
-# #     )
-
-# def create_notification(recipient, title, message, notification_type, event=None):
-#     print(f"[DEBUG] Creating notification for {recipient} with title: {title}")
-#     notification = Notification.objects.create(
-#         recipient=recipient,
-#         title=title,
-#         message=message,
-#         notification_type=notification_type,
-#         event=event
-#     )
-#     print(f"[DEBUG] Notification created with id: {notification.id}")
-#     return notification
-
-# def send_email_notification(recipient_email, subject, message):
-#     send_mail(
-#         subject,
-#         message,
-#         settings.DEFAULT_FROM_EMAIL,
-#         [recipient_email],
-#         fail_silently=False,
-#     )
 
 
 

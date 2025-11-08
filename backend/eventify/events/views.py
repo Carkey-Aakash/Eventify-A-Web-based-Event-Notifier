@@ -58,31 +58,6 @@ class EventListCreateView(generics.ListCreateAPIView):
     parser_classes = [JSONParser, FormParser, MultiPartParser]
 
 
-    # def get_queryset(self):
-    #     user = self.request.user
-    #     queryset = Event.objects.all()
-
-    #     # Auto-update event status
-    #     now = timezone.now()
-    #     for event in queryset:
-    #         if event.end_date and event.end_date < now and event.status == 'approved':
-    #             event.status = 'completed'
-    #             event.completion_notified= True
-    #             event.save()
-    #             admins = User.objects.filter(role='Admin')
-    #             for admin in admins:
-    #                 create_notification(
-    #                     recipient=admin,
-    #                     title=f"✅ Event Completed: {event.title}",
-    #                     message=(
-    #                         f"The event **{event.title}** has been marked as *completed*.\n\n"
-    #                         f"🕒 Time: {_fmt_dt(event.start_date)} → {_fmt_dt(event.end_date)}\n"
-    #                         f"📍 Venue: {event.venue}\n\n"
-    #                         f"Details: {_event_api_url(event.id)}"
-    #                     ),
-    #                     notification_type='event_completed',
-    #                     event=event
-    #                 )
 
 
     def get_queryset(self):
@@ -722,124 +697,6 @@ def approve_reject_event(request, event_id):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-# @api_view(['POST'])
-# @permission_classes([permissions.IsAuthenticated])
-# def register_for_event(request, event_id):
-#     # Register a student for an event verifying phone and email
-#     if not request.user.is_student():
-#         return Response({'error': 'Only students can register for events'},
-#                        status=status.HTTP_403_FORBIDDEN)
-
-#     event = get_object_or_404(Event, id=event_id)
-
-
-#     if event.event_level == 'class':
-#         return Response(
-#             {'error': 'Registration is not required for class-level events. You can attend directly.'},
-#             status=status.HTTP_400_BAD_REQUEST
-#         )
-
-
-
-#     # Check if registration is open
-#     if not event.is_registration_open():
-#         return Response({'error': 'Registration is closed for this event'},
-#                        status=status.HTTP_400_BAD_REQUEST)
-
-#     # Check if already registered
-#     existing_registration = EventRegistration.objects.filter(event=event, student=request.user).first()
-#     if existing_registration:
-#         if existing_registration.status == 'pending':
-#             return Response({'message': 'Your registration is pending. Please complete the payment.'},
-#                             status=status.HTTP_400_BAD_REQUEST)
-#         elif existing_registration.status == 'confirmed':
-#             return Response({'message': 'You are already registered for this event.'},
-#                             status=status.HTTP_400_BAD_REQUEST)
-#         else:
-#             return Response({'message': f'You have already registered with status: {existing_registration.status}.'},
-#                             status=status.HTTP_400_BAD_REQUEST)
-
-#     # verify student's Email or Phone in college Database
-#     try:
-#         college_record = CollegeStudent.objects.get(username=request.user.username)
-#     except CollegeStudent.DoesNotExist:
-#         return Response({
-#             'error': 'Your username does not exist in the college database. Registration denied.'
-#         }, status=status.HTTP_400_BAD_REQUEST)
-
-#     # Check email or phone number match
-#     email_match = (college_record.email and college_record.email == request.user.email)
-#     phone_match = (college_record.phone_number and college_record.phone_number == request.user.phone_number)
-
-#     if not (email_match or phone_match):
-#         return Response({
-#             'error': 'Your email or phone number does not match the college database. Registration denied.'
-#         }, status=status.HTTP_400_BAD_REQUEST)
-
-#     # Register the student
-#     registration = EventRegistration.objects.create(
-#         event=event,
-#         student=request.user,
-#         status='confirmed' if not event.is_paid_event else 'pending'
-#     )
-
-#     # Notify student (in-app + email)
-#     title = f"🎟️ Registration Successful: {event.title}"
-#     message = (
-#         f"You have successfully registered for **{event.title}**.\n\n"
-#         f"📍 Venue: {event.venue}\n"
-#         f"🕒 Time: {_fmt_dt(event.start_date)} → {_fmt_dt(event.end_date)}\n\n"
-#         f"Details: {_event_api_url(event.id)}"
-#     )
-#     create_notification(
-#         recipient=request.user,
-#         title=title,
-#         message=message,
-#         notification_type='registration_confirmation',
-#         event=event
-#     )
-#     if request.user.email:
-#         send_email_notification(
-#             request.user.email,
-#             title,
-#             message
-#         )
-
-#     return Response({
-#         'message': 'Registration successful',
-#         'registration': EventRegistrationSerializer(registration).data
-#     }, status=status.HTTP_201_CREATED)
-
-
-# @api_view(['POST'])
-# @permission_classes([permissions.IsAuthenticated])
-# def cancel_registration(request, event_id):
-#     # """
-#     # Students can cancel ONLY before the event starts.
-#     # """
-#     event = get_object_or_404(Event, id=event_id)
-
-#     # Block if the event has started (or already finished)
-#     if now() >= event.start_date:
-#         return Response(
-#             {'error': 'You can no longer cancel. The event has already started or completed.'},
-#             status=status.HTTP_400_BAD_REQUEST
-#         )
-
-#     try:
-#         registration = EventRegistration.objects.get(event=event, student=request.user)
-#     except EventRegistration.DoesNotExist:
-#         return Response({'error': 'Registration not found'}, status=status.HTTP_404_NOT_FOUND)
-
-#     # Optional: if already cancelled, tell them
-#     if registration.status == 'cancelled':
-#         return Response({'message': 'Registration is already cancelled.'}, status=status.HTTP_200_OK)
-
-#     registration.status = 'cancelled'
-#     registration.save()
-
-#     return Response({'message': 'Registration cancelled successfully'}, status=status.HTTP_200_OK)
-
 @api_view(["POST"])
 @permission_classes([permissions.IsAuthenticated])
 def register_for_event(request, event_id):
@@ -1097,50 +954,6 @@ def cancel_registration(request, event_id):
 
     return Response({"message": "Registration cancelled successfully"}, status=status.HTTP_200_OK)
 
-# @api_view(['GET', 'POST'])
-# @permission_classes([permissions.AllowAny])   # <-- allow unauthenticated users to see the login form
-# @csrf_exempt
-# def attendance_verify(request):
-#     event_id = request.GET.get('event_id')
-#     qr = request.GET.get('qr')
-
-#     if not event_id or not qr:
-#         return HttpResponse("Invalid attendance link.", status=400)
-
-#     event = get_object_or_404(Event, id=event_id)
-
-#     # Check if current time is within event time (valid QR)
-#     now = timezone.now()
-#     if not (event.start_date <= now <= event.end_date):
-#         return HttpResponse("QR code expired or event is not active.", status=400)
-
-#     # Check QR token matches what was stored on the Event
-#     if hasattr(event, 'qr_code_data') and event.qr_code_data != qr:
-#         return HttpResponse("Invalid QR code.", status=400)
-
-#     if request.method == 'GET':
-#         # ✅ ALWAYS show login form, even if request.user.is_authenticated
-#         form = AuthenticationForm()
-#         return render(
-#             request,
-#             'events/attendance_login.html',
-#             {'form': form, 'event': event, 'qr': qr, 'next': request.get_full_path()}
-#         )
-
-#     # POST → process login, then mark attendance
-#     form = AuthenticationForm(data=request.POST)
-#     if form.is_valid():
-#         user = form.get_user()
-#         login(request, user)
-#         return mark_attendance_for_user(user, event, qr)
-#     else:
-#         # Make sure the template path matches the others ('events/...')
-#         return render(
-#             request,
-#             'events/attendance_login.html',
-#             {'form': form, 'event': event, 'qr': qr, 'errors': form.errors}
-#         )
-    
 
     def _styled_message(message: str, color: str = "black") -> str:
     # """Helper to wrap messages in styled HTML for visibility."""
@@ -1195,21 +1008,6 @@ def attendance_verify(request):
             {'form': form, 'event': event, 'qr': qr, 'errors': form.errors}
         )
     
-# def mark_attendance_for_user(user, event, qr):
-#     # Verify user is student and registered for event
-#     if not user.is_student():
-#         return HttpResponse("Only students can mark attendance.", status=403)
-
-#     try:
-#         registration = EventRegistration.objects.get(event=event, student=user, status='confirmed')
-#     except EventRegistration.DoesNotExist:
-#         return HttpResponse("You are not registered or registration not confirmed.", status=403)
-
-#     registration.attended = True
-#     registration.attendance_marked_at = timezone.now()
-#     registration.save()
-
-#     return HttpResponse("Attendance marked successfully! Thank you.", status=200)
 
 def _styled_message(message: str, color: str = "black") -> str:
     """Helper to wrap messages in styled HTML for visibility."""

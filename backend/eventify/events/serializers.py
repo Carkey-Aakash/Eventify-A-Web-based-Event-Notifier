@@ -25,31 +25,7 @@ class EventSerializer(serializers.ModelSerializer):
     def get_is_registration_open(self, obj):
         return obj.is_registration_open()
 
-    # def validate(self, attrs):
-
-
-    #     now = timezone.now()
-
-    #     if attrs.get('start_date') and attrs['start_date'] < now:
-    #         raise serializers.ValidationError("Start date cannot be in the past.")
-
-    #     if attrs.get('end_date') and attrs['end_date'] < now:
-    #         raise serializers.ValidationError("End date cannot be in the past.")
-
-    #     if attrs.get('registration_deadline') and attrs['registration_deadline'] < now:
-    #         raise serializers.ValidationError("Registration deadline cannot be in the past.")
-
-    #     if attrs.get('start_date') and attrs.get('end_date'):
-    #         if attrs['start_date'] >= attrs['end_date']:
-    #             raise serializers.ValidationError("Start date must be before end date")
-
-    #     if attrs.get('registration_deadline') and attrs.get('start_date'):
-    #         if attrs['registration_deadline'] >= attrs['start_date']:
-    #             raise serializers.ValidationError("Registration deadline must be before event start date")
-            
     
-
-    #     return attrs
 
 
 
@@ -139,23 +115,7 @@ class EventCreateSerializer(serializers.ModelSerializer):
             'is_paid_event', 'registration_fee', 'poster'
         ]
 
-    # def validate(self, data):
-    #     event_level = data.get('event_level')
-
-    #     if event_level == 'class':
-    #         # class_name is always required
-    #         if not data.get('class_name'):
-    #             raise serializers.ValidationError({
-    #                 "class_name": "Class name is required for class-level events."
-    #             })
-
-    #         # Require either year or semester (at least one)
-    #         if not data.get('year') and not data.get('semester'):
-    #             raise serializers.ValidationError({
-    #                 "year/semester": "Provide either year or semester for class-level events."
-    #             })
-
-    #     return data
+    
 
 
     def validate(self, data):

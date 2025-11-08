@@ -14,59 +14,6 @@ class AbsoluteURLImageField(serializers.ImageField):
         return url
 
 
-# class UserRegistrationSerializer(serializers.ModelSerializer):
-#     # incoming from frontend
-#     password  = serializers.CharField(write_only=True, required=True)
-#     password1 = serializers.CharField(write_only=True, required=True)
-#     user_id   = serializers.ReadOnlyField(source='id')
-
-#     class Meta:
-#         model = User
-#         fields = [
-#             'user_id', 'username', 'email',
-#             'password', 'password1',
-#             'department', 'organization', 'gender',
-#             'student_id', 'phone_number', 'profile_picture',
-#         ]
-#         # make the optional fields truly optional regardless of model blank/null
-#         extra_kwargs = {
-#             'department':      {'required': False, 'allow_null': True, 'allow_blank': True},
-#             'organization':    {'required': False, 'allow_null': True, 'allow_blank': True},
-#             'gender':          {'required': False, 'allow_null': True, 'allow_blank': True},
-#             'student_id':      {'required': False, 'allow_null': True, 'allow_blank': True},
-#             'profile_picture': {'required': False, 'allow_null': True},
-#             # if phone_number is optional in your UI, make it optional here too:
-#             'phone_number':    {'required': False, 'allow_null': True, 'allow_blank': True},
-#         }
-
-#     def validate(self, attrs):
-#         pwd  = attrs.get('password')
-#         pwd1 = attrs.get('password1')
-
-#         if pwd != pwd1:
-#             # add a 'message' so your toast shows it
-#             raise serializers.ValidationError({
-#                 'message': 'Passwords do not match.',
-#                 'password1': 'Passwords do not match.',
-#             })
-
-#         # enforce Django password rules
-#         validate_password(pwd)
-#         return attrs
-
-#     def create(self, validated_data):
-#         # remove non-model/processed fields
-#         validated_data.pop('password1', None)
-#         password = validated_data.pop('password')
-
-#         # force Student role if that’s your rule (you had this already)
-#         validated_data['role'] = 'Student'
-
-#         user = User(**validated_data)
-#         user.set_password(password)  # hashes the password
-#         user.save()
-#         return user
-
 class UserRegistrationSerializer(serializers.ModelSerializer):
     # incoming from frontend
     password  = serializers.CharField(write_only=True, required=True)
@@ -123,18 +70,6 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
             )
         return value
     
-    # def validate(self, attrs):
-    #     pwd  = attrs.get('password')
-    #     pwd1 = attrs.get('password1')
-
-    #     if pwd != pwd1:
-    #         raise serializers.ValidationError({
-    #             'message': 'Passwords do not match.',
-    #             'password1': 'Passwords do not match.',
-    #         })
-
-    #     validate_password(pwd)
-    #     return attrs
 
     def validate(self, attrs):
         """
