@@ -91,11 +91,15 @@ This system replaces manual paperwork, reduces delays, and fosters better engage
 
 10. **Organizer QR scan and Edit View**
 
-    https://github.com/user-attachments/assets/d5754df9-86ec-4fe4-bf90-45f598cd995c
-
+   https://github.com/user-attachments/assets/ab153b58-3b2e-46ca-b3da-8791d9f9bf8c
+   
 11. **Django Admin panel View**
     
     https://github.com/user-attachments/assets/b57d1f33-08b5-4c86-ad01-f0dd3c829cdd
+
+12.**Campus-chief Event approve View**
+
+   https://github.com/user-attachments/assets/64e2dbc0-5c97-4e98-bb4c-2f42903afc76
 
    
 ## 🧠 Algorithms Used
