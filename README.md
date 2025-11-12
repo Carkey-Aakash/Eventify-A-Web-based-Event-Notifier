@@ -55,7 +55,7 @@ This system replaces manual paperwork, reduces delays, and fosters better engage
 
 1. **Landing Page**
    
-   https://github.com/user-attachments/assets/d0d52fc0-a86c-4682-a11d-0ffb310a285b
+  https://github.com/user-attachments/assets/5b3e3336-ef54-41cf-9fe8-7c08238e68fe
    
 2. **Login Page** – Demonstrates user login functionality.
    
